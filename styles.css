@@ -18,8 +18,8 @@ body{
     overflow-y: hidden;
 }
 #game{
-    width: 800px;
-    height: 500px;
+    width: 830px;
+    height: 490px;
     display: flex;
     margin: 4rem auto;
     border: 2px solid var(--orange);
@@ -27,8 +27,12 @@ body{
     color: var(--white);
 }
 #text-based{
-    width: 65%;
+    width: calc(100% - 277px);
     border-right: 2px solid var(--orange);
+}
+img{
+    width: 278px;
+    overflow: hidden;
 }
 #stats, #inventory, #monster-stats, #buttons{
     padding: 10px;
@@ -42,8 +46,9 @@ body{
 }
 #stats span, #inventory span, #monster-stats span{  padding-right: 15px;
 }
+
 button{
-    padding: 5px;
+    padding: 6px;
     background-color: var(--orange);
     color: var(--white);
     font-weight: 800;
