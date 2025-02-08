@@ -19,10 +19,11 @@ const weaponsText = document.querySelector("#weapon-text");
 const potionsText = document.querySelector("#potions-text");
 const monsterHealthText = document.querySelector("#monster-health-text");
 const text = document.querySelector("#text");
-const image = document.querySelector("img")
+const image = document.querySelector("img");
 const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
+const buttonPotion = document.querySelector("#potion")
 
 //ESCENARIOS
 
@@ -31,7 +32,7 @@ const locations = [
         name: "Pueblo",
         "button text": ["Ir a la tienda", "Ir al bosque", "Ir a la montaña"],
         "button functions": [goStore, goForest, goMountain],
-        text: "Estas en el centro del pueblo, desde aqui puedes ver la tienda que regenta tu prima.",
+        text: "Estas en el centro del pueblo, desde aqui puedes ver la tienda que regenta tu prima, la salida al bosque, y a los lejos la montaña.",
         image: "img/town.jpg"
     },
     {
@@ -43,8 +44,8 @@ const locations = [
     },
     {
         name: "Bosque Oscuro",
-        "button text": ["Atacar slime", "Atacar bestia", "Volver al pueblo"],
-        "button functions": [attackSlime, attackBeast, goTown],
+        "button text": ["Atacar goblin", "Atacar bestia", "Volver al pueblo"],
+        "button functions": [attackGoblin, attackBeast, goTown],
         text: "Te encuentras en el bosque. Escuchas mostruos acechando cerca tuyo. Suenan como los ronquidos de tu madre.",
         image: "img/forest.jpg"
     },
@@ -56,34 +57,60 @@ const locations = [
         image: "img/dragon.jpg"
     },
     {
-        name: "Slime",
+        name: "Goblin",
         "button text": ["Atacar", "Esquivar", "Huir"],
         "button functions": [attack, dodge, goTown],
-        text: "Estas atacando un slime. Es tan viscoso...",
-        image: "img/slime.jpg"
+        text: "Estas atacando un goblin. Es pequeño, feo y escurridizo. Te recuerda a tu hermano.",
+        image: "img/goblin.jpg"
     },
     {
         name: "Beast",
         "button text": ["Atacar", "Esquivar", "Huir"],
         "button functions": [attack, dodge, goTown],
-        text: "Estas atacando una bestia. Sus colmillos enormes te recuerda a tu tio.",
+        text: "Estas atacando una bestia. Sus colmillos enormes te recuerdan a tu tio.",
         image: "img/beast.jpg"
     }
 ]
 
-// ACCIÓN BOTONES
+// ACCIÓN INICIAL DE LOS BOTONES
 
 button1.onclick = goStore;
 button2.onclick = goForest;
 button3.onclick = goMountain;
+buttonPotion.onclick = usePotion;
+
 
 // FUNCIONES ACCIONES
 
 function buyPotion(){
-
+ if(gold > 10){
+    potions += 1;
+    gold -= 10;
+    goldText = gold;
+    potionsText = potions;
+ } else{
+    text.innerText = "No tienes suficiente oro."
+ }
 }
 function buyWeapon(){
-
+    if(gold > 30){
+        currentWeaponIndex += 1;
+        gold -= 30;
+        goldText = gold;
+        weapon = currentWeaponIndex;
+     } else{
+        text.innerText = "No tienes suficiente oro."
+     }
+}
+function usePotion(){
+    if (potions >= 1){
+        potions--;
+        potionsText = potions;
+        health += 10;
+        healthText = health;
+    } else {
+        innerText = "No tienes más pociones."
+    }
 }
 function attack(){
 
@@ -119,7 +146,7 @@ function goForest(){
 function goMountain(){
     update(locations[3]);
 }
-function attackSlime(){
+function attackGoblin(){
     update(locations[4]);
 }
 function attackBeast(){

@@ -5,7 +5,7 @@
     --blue: rgb(20, 20, 59);
     --lighter-blue: rgb(40, 40, 102);
     --red: rgb(151, 48, 48);
-
+    --green: rgb(14, 152, 14);
 }
 *{
     box-sizing: border-box;
@@ -54,6 +54,9 @@ button{
     font-weight: 800;
     border: 1px solid var(--yellow);
     cursor: pointer;
+}
+#potion{
+    background-color: var(--green);
 }
 p{
     padding: 0 20px;
