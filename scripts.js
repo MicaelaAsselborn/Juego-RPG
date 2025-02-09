@@ -144,8 +144,8 @@ const monsters = [
     {
         name: "Dragón",
         level: 60,
-        health: 300,
-        maxHealth: 300
+        health: 400,
+        maxHealth: 400
     }
 ]
 
@@ -320,10 +320,3 @@ function restart(){
     goTown()
 }
 
-//COSAS POR HACER
-/*
-- Sonido cuando atacas
-- Animacion que sacude la pantalla cuando atacas
-- Adaptar a pantallas moviles
-- Añadir vibracion al telefono al atacar
-*/
