@@ -19,6 +19,7 @@ const weaponsText = document.querySelector("#weapon-text");
 const potionsText = document.querySelector("#potions-text");
 const text = document.querySelector("#text");
 const image = document.querySelector("img");
+const audio = document.querySelector("#audio");
 const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
@@ -56,63 +57,72 @@ const locations = [
         "button text": ["Ir a la tienda", "Ir al bosque", "Ir a la montaña"],
         "button functions": [goStore, goForest, fightDragon],
         text: "Estas en el centro del pueblo, desde aqui puedes ver la tienda que regenta tu prima, la salida al bosque, y a los lejos la montaña.",
-        image: "img/town.jpg"
+        image: "img/town.jpg",
+        audio: "audio/town.mp3"
     },
     {
         name: "Tienda",
         "button text": ["Comprar poción (10 oro)", "Comprar arma (30 oro)", "Salir de la tienda"],
         "button functions": [buyPotion, buyWeapon, goTown],
         text: "Te encuentras en la tienda. Tu prima te mira desde el mostrador, hay deseo en cada uno de sus tres ojos. Debes matar al dragón pronto.",
-        image: "img/shop.jpg"
+        image: "img/shop.jpg",
+        audio: "audio/shop.mp3"
     },
     {
         name: "Bosque Oscuro",
         "button text": ["Atacar goblin", "Atacar bestia", "Volver al pueblo"],
         "button functions": [fightGoblin, fightBeast, goTown],
         text: "Te encuentras en el bosque. Escuchas mostruos acechando cerca tuyo. Suenan como los ronquidos de tu madre.",
-        image: "img/forest.jpg"
+        image: "img/forest.jpg",
+        audio: "audio/forest.mp3"
     },
     {
         name: "Attack Dragón",
         "button text": ["Atacar", "Esquivar", "Huir"],
         "button functions": [attackDragon, dodge, goTown],
         text: "Te encuentras en la \"montaña de la muerte\", sientes escalofrios, quizás sea por el frio, o quizás sea por el dragon de 20 metros del altura que se encuentra ante ti, relaminedose sus labios escamosos. Te recuerda a tu prima.",
-        image: "img/dragon.jpg"
+        image: "img/dragon.jpg",
+        audio: "audio/dragon.mp3"
     },
     {
         name: "Attack Goblin",
         "button text": ["Atacar", "Esquivar", "Huir"],
         "button functions": [attackGoblin, dodge, goForest],
         text: "Estas atacando un goblin. Es pequeño, feo y escurridizo. Te recuerda a tu hermano.",
-        image: "img/goblin.jpg"
+        image: "img/goblin.jpg",
+        audio: "audio/fight.mp3"
     },
     {
         name: "Attack Beast",
         "button text": ["Atacar", "Esquivar", "Huir"],
         "button functions": [attackBeast, dodge, goForest],
         text: "Estas atacando un lobo gigante. Sus colmillos enormes te recuerdan a tu tio.",
-        image: "img/beast.jpg"
+        image: "img/beast.jpg",
+        audio: "audio/fight.mp3"
     },
     {
         name: "Monstruo derrotado",
         "button text": ["Volver al pueblo", "Volver al pueblo", "Volver al pueblo"],
         "button functions": [goTown, goTown, goTown],
         text: "El monstruo aulla de dolor con su último aliento y cae muerto. Has ganado algo de experiencia y has encontrado algo de oro en su cadaver. El olor que flota en el aire te trae recuerdos a los fines de semana en la casa de tus abuelos.",
-        image: "img/victory.jpg"
+        image: "img/victory.jpg",
+        audio: "audio/victory.mp3"
     },
     {
         name: "Derrota",
         "button text": ["¿Jugar otra vez?", "¿Jugar otra vez?", "¿Jugar otra vez?"],
         "button functions": [restart, restart, restart],
         text: "Has muerto.",
-        image: "img/defeat.jpg"
+        image: "img/defeat.jpg",
+        audio: "audio/defeat.mp3"
     },
     {
         name: "Victoria",
         "button text": ["¿Jugar otra vez?", "¿Jugar otra vez?", "¿Jugar otra vez?"],
         "button functions": [restart, restart, restart],
         text: "¡Has derrotado al dragón! Victorioso, te dirijes al pueblo vecino en busca de novia, pero resulta que generaciones de relaciones cosanguineas no han dejado terriblemente deformada solo a tu familia, si no que también a ti, y ahora todas las chicas de Notcousins se espantan al verte. Quizás, si obvias su tercer ojo, tu prima no este tan mal...",
-        image: "img/endGame.jpg"
+        image: "img/endGame.jpg",
+        audio: "audio/endGame.mp3"
     }
 ]
 
@@ -260,6 +270,9 @@ function update(location){
     button3.onclick = location["button functions"][2];
     text.innerText = location.text;
     image.src = location.image;
+    audio.src = location.audio;
+    audio.load();
+    audio.play();
 }
 
 function goTown(){
@@ -309,7 +322,6 @@ function restart(){
 
 //COSAS POR HACER
 /*
-- Sonido ambiental en distintas localizaciones
 - Sonido cuando atacas
 - Animacion que sacude la pantalla cuando atacas
 - Adaptar a pantallas moviles
