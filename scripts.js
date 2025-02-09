@@ -5,8 +5,8 @@ let health = 100;
 let gold= 150;
 let currentWeaponIndex = 0;
 let potions = 0;
-let fighting;
-let monsterHealth;
+let fighting = 0;
+let monsterHealth = 0;
 let inventory = ["Palo"];
 
 //QUERY SELECTORS
@@ -224,6 +224,8 @@ function fightGoblin(){
     update(locations[4]);
     monsterHealth = monsters[fighting].health;
     monsterStats.style.display = "block";
+    monsterName.innerText = monsters[fighting].name;
+    monsterHealthText.innerText = monsterHealth;
 }
 function fightBeast(){
     update(locations[5]);
