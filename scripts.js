@@ -11,7 +11,6 @@ let inventory = ["Palo"];
 
 //QUERY SELECTORS
 
-
 const xpText = document.querySelector("#xp-text");
 const healthText = document.querySelector("#health-text");
 const goldText = document.querySelector("#gold-text");
