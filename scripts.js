@@ -55,7 +55,7 @@ const locations = [
         name: "Pueblo",
         "button text": ["Ir a la tienda", "Ir al bosque", "Ir a la montaña"],
         "button functions": [goStore, goForest, fightDragon],
-        text: "Estas en el centro del pueblo, desde aqui puedes ver la tienda que regenta tu prima, la salida al bosque, y a los lejos la montaña.",
+        text: "Estas en el centro del pueblo, desde aqui puedes ver la tienda que regenta tu prima, la salida al bosque, y a lo lejos la montaña.",
         image: "img/town.jpg",
         audio: "audio/town.mp3"
     },
@@ -69,7 +69,7 @@ const locations = [
     },
     {
         name: "Bosque Oscuro",
-        "button text": ["Atacar goblin", "Atacar bestia", "Volver al pueblo"],
+        "button text": ["Atacar goblin", "Atacar hombre lobo", "Volver al pueblo"],
         "button functions": [fightGoblin, fightBeast, goTown],
         text: "Te encuentras en el bosque. Escuchas mostruos acechando cerca tuyo. Suenan como los ronquidos de tu madre.",
         image: "img/forest.jpg",
@@ -92,10 +92,10 @@ const locations = [
         audio: "audio/fight.mp3"
     },
     {
-        name: "Attack Beast",
+        name: "Attack Hombre lobo",
         "button text": ["Atacar", "Esquivar", "Huir"],
         "button functions": [attackBeast, dodge, goForest],
-        text: "Estas atacando un lobo gigante. Sus colmillos enormes te recuerdan a tu tio.",
+        text: "Estas atacando un hombre lobo. Sus colmillos enormes te recuerdan a tu tio.",
         image: "img/beast.jpg",
         audio: "audio/fight.mp3"
     },
@@ -135,7 +135,7 @@ const monsters = [
         maxHealth: 50
     },
     {
-        name: "Lobo Gigante",
+        name: "Hombre Lobo",
         level: 20,
         health: 150,
         maxHealth: 150

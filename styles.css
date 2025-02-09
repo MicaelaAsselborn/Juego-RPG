@@ -52,7 +52,10 @@ img{
 }
 #stats span, #inventory span, #monster-stats span{  padding-right: 15px;
 }
-
+#stats{
+    display: flex;
+    justify-content: space-between;
+}
 button{
     padding: 6px;
     background-color: var(--orange);
