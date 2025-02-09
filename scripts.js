@@ -6,6 +6,7 @@ let gold= 150;
 let currentWeaponIndex = 0;
 let potions = 0;
 let fighting;
+let monsterHealth;
 let inventory = ["Palo"];
 
 //QUERY SELECTORS
@@ -22,8 +23,9 @@ const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
 const buttonPotion = document.querySelector("#potion");
+const monsterStats = document.querySelector("#monster-stats");
 const monsterName = document.querySelector("#monster-name");
-const monsterHealth = document.querySelector("#monster-health-text")
+const monsterHealthText = document.querySelector("#monster-health-text")
 
 //ARMAS
 
@@ -220,6 +222,8 @@ function fightDragon(){
 }
 function fightGoblin(){
     update(locations[4]);
+    monsterHealth = monsters[fighting].health;
+    monsterStats.style.display = "block";
 }
 function fightBeast(){
     update(locations[5]);
