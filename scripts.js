@@ -137,13 +137,13 @@ const monsters = [
     },
     {
         name: "Lobo Gigante",
-        level: 30,
+        level: 20,
         health: 150,
         maxHealth: 150
     },
     {
         name: "Dragón",
-        level: 70,
+        level: 60,
         health: 300,
         maxHealth: 300
     }
