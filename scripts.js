@@ -5,12 +5,11 @@ let health = 100;
 let gold= 150;
 let currentWeaponIndex = 0;
 let potions = 0;
-let fighting;
-let monsterHealth;
+let fighting = 0;
+let monsterHealth = 0;
 let inventory = ["Palo"];
 
-
-//CONSTANTES
+//QUERY SELECTORS
 
 
 const xpText = document.querySelector("#xp-text");
@@ -18,14 +17,17 @@ const healthText = document.querySelector("#health-text");
 const goldText = document.querySelector("#gold-text");
 const weaponsText = document.querySelector("#weapon-text");
 const potionsText = document.querySelector("#potions-text");
-const monsterHealthText = document.querySelector("#monster-health-text");
 const text = document.querySelector("#text");
 const image = document.querySelector("img");
 const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
 const buttonPotion = document.querySelector("#potion");
-const monsterStats = document.querySelector("#monster-stats")
+const monsterStats = document.querySelector("#monster-stats");
+const monsterName = document.querySelector("#monster-name");
+const monsterHealthText = document.querySelector("#monster-health-text")
+
+//ARMAS
 
 const weapons = [
     {
@@ -48,11 +50,11 @@ const weapons = [
 
 //ESCENARIOS
 
-const locations = [
+var locations = [
     {
         name: "Pueblo",
         "button text": ["Ir a la tienda", "Ir al bosque", "Ir a la montaña"],
-        "button functions": [goStore, goForest, goMountain],
+        "button functions": [goStore, goForest, fightDragon],
         text: "Estas en el centro del pueblo, desde aqui puedes ver la tienda que regenta tu prima, la salida al bosque, y a los lejos la montaña.",
         image: "img/town.jpg"
     },
@@ -66,28 +68,28 @@ const locations = [
     {
         name: "Bosque Oscuro",
         "button text": ["Atacar goblin", "Atacar bestia", "Volver al pueblo"],
-        "button functions": [attackGoblin, attackBeast, goTown],
+        "button functions": [fightGoblin, fightBeast, goTown],
         text: "Te encuentras en el bosque. Escuchas mostruos acechando cerca tuyo. Suenan como los ronquidos de tu madre.",
         image: "img/forest.jpg"
     },
     {
         name: "Attack Dragón",
         "button text": ["Atacar", "Esquivar", "Huir"],
-        "button functions": [attack, dodge, goTown],
+        "button functions": [attackDragon, dodge, goTown],
         text: "Te encuentras en la \"montaña de la muerte\", sientes escalofrios, quizás sea por el frio, o quizás sea por el dragon de 20 metros del altura que se encuentra ante ti, relaminedose sus labios escamosos. Te recuerda a tu prima.",
         image: "img/dragon.jpg"
     },
     {
         name: "Attack Goblin",
         "button text": ["Atacar", "Esquivar", "Huir"],
-        "button functions": [attack, dodge, goTown],
+        "button functions": [attackGoblin, dodge, goForest],
         text: "Estas atacando un goblin. Es pequeño, feo y escurridizo. Te recuerda a tu hermano.",
         image: "img/goblin.jpg"
     },
     {
         name: "Attack Beast",
         "button text": ["Atacar", "Esquivar", "Huir"],
-        "button functions": [attack, dodge, goTown],
+        "button functions": [attackBeast, dodge, goForest],
         text: "Estas atacando una bestia. Sus colmillos enormes te recuerdan a tu tio.",
         image: "img/beast.jpg"
     }
@@ -104,12 +106,12 @@ const monsters = [
     {
         name: "Bestia",
         level: 30,
-        health: 150
+        health: 150,
     },
     {
         name: "Dragón",
         level: 100,
-        health: 500
+        health: 500,
     }
 ]
 
@@ -117,7 +119,7 @@ const monsters = [
 
 button1.onclick = goStore;
 button2.onclick = goForest;
-button3.onclick = goMountain;
+button3.onclick = fightDragon;
 buttonPotion.onclick = usePotion;
 
 
@@ -174,6 +176,18 @@ function usePotion(){
         innerText = "No tienes más pociones."
     }
 }
+function attackGoblin(){
+    fighting = 0;
+    attack();
+}
+function attackBeast(){
+    fighting = 1;
+    attack();
+}
+function attackDragon(){
+    fighting = 2;
+    attack();
+}
 function attack(){
 
 }
@@ -196,21 +210,42 @@ function update(location){
 
 function goTown(){
     update(locations[0]);
+    monsterStats.style.display = "none";
 }
-
 function goStore(){
     update(locations[1]);
+    monsterStats.style.display = "none";
 }
-
 function goForest(){
     update(locations[2]);
+    monsterStats.style.display = "none";
 }
-function goMountain(){
+function fightDragon(){
     update(locations[3]);
+    monsterStats.style.display = "block";
+    monsterName.innerText = monsters[2].name;
+    monsterHealthText.innerText = monsters[2].health;
 }
-function attackGoblin(){
+function fightGoblin(){
     update(locations[4]);
+    monsterStats.style.display = "block"
+    monsterName.innerText = monsters[0].name;
+    monsterHealthText.innerText = monsters[0].health;
 }
-function attackBeast(){
+function fightBeast(){
     update(locations[5]);
+    monsterStats.style.display = "block";
+    monsterName.innerText = monsters[1].name;
+    monsterHealthText.innerText = monsters[1].health;
 }
+//COSAS POR AÑADIR
+/*
+- Hacer funcionar las funciones de ataque
+- Añadir funcion para ganar exp
+- Añadir funcion para ganar oro
+- Sonido ambiental en distintas localizaciones
+- Sonido cuando atacas
+- Animacion que sacude la pantalla cuando atacas
+- Adaptar a pantallas moviles
+- Añadir vibracion al telefono al atacar
+*/
