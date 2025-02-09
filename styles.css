@@ -16,6 +16,8 @@ body{
     height: 100dvh;
     margin: 0;
     overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
 }
 #game{
     width: 830px;
