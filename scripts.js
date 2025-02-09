@@ -7,11 +7,8 @@ let currentWeaponIndex = 0;
 let potions = 0;
 let fighting = 0;
 let monsterHealth = 0;
-let fighting = 0;
-let monsterHealth = 0;
 let inventory = ["Palo"];
 
-//QUERY SELECTORS
 //QUERY SELECTORS
 
 
@@ -26,11 +23,6 @@ const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
 const buttonPotion = document.querySelector("#potion");
-const monsterStats = document.querySelector("#monster-stats");
-const monsterName = document.querySelector("#monster-name");
-const monsterHealthText = document.querySelector("#monster-health-text")
-
-//ARMAS
 const monsterStats = document.querySelector("#monster-stats");
 const monsterName = document.querySelector("#monster-name");
 const monsterHealthText = document.querySelector("#monster-health-text")
@@ -58,7 +50,6 @@ const weapons = [
 
 //ESCENARIOS
 
-var locations = [
 var locations = [
     {
         name: "Pueblo",
