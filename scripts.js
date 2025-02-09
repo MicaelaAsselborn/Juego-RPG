@@ -1,8 +1,8 @@
 //VARIABLES
 
 let xp = 0;
-let health = 100;
-let gold= 10;
+let health = 1000;
+let gold= 210;
 let currentWeaponIndex = 0;
 let potions = 0;
 let fighting = 0;
@@ -106,6 +106,13 @@ const locations = [
         "button functions": [restart, restart, restart],
         text: "Has muerto.",
         image: "img/defeat.jpg"
+    },
+    {
+        name: "Victoria",
+        "button text": ["¿Jugar otra vez?", "¿Jugar otra vez?", "¿Jugar otra vez?"],
+        "button functions": [restart, restart, restart],
+        text: "¡Has derrotado al dragón! Victorioso, te dirijes al pueblo vecino en busca de novia, pero resulta que generaciones de relaciones cosanguineas no han dejado terriblemente deformada solo a tu familia, si no que también a ti, y ahora todas las chicas de Notcousins se espantan al verte. Quizás, si obvias su tercer ojo, tu prima no este tan mal...",
+        image: "img/endGame.jpg"
     }
 ]
 
@@ -124,8 +131,8 @@ const monsters = [
     },
     {
         name: "Dragón",
-        level: 100,
-        health: 500,
+        level: 70,
+        health: 300,
     }
 ]
 
@@ -216,17 +223,22 @@ function attackDragon(){
     attack();
 }
 function attack(){
+    monsterStats.style.display = "block";
     health -= monsters[fighting].level;
+    monsters[fighting].health -= weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp) + 1;
     monsterHealth = monsters[fighting].health
     monsterHealthText.innerText = monsterHealth;
     healthText.innerText = health;
     text.innerText = "El " + monsters[fighting].name + " te ataca y te causa " + monsters[fighting].level + " puntos de daño. Tu le devuelves el golpe con tu " + inventory[currentWeaponIndex] + " y le haces " + (weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp) + 1) + " puntos de daño."
-    monsters[fighting].health -= weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp) + 1;
     if (health <= 0){
         lose();
     } else if (monsterHealth <= 0 ){
-        defeatMonster();
-    }
+        if (fighting === 2){
+            winGame()
+        } else {
+            defeatMonster();
+        }
+    } 
 }
 function dodge(){
     text.innerText = "Esquivas el ataque de el " + monsters[fighting].name + ".";
@@ -237,12 +249,14 @@ function lose(){
     monsterStats.style.display = "none"
 }
 function defeatMonster(){
-    update(locations[6])
-    monsterStats.style.display = "none";
     gold += Math.floor(monsters[fighting].level * 6.7);
     xp += monsters[fighting].level;
     goldText.innerText = gold;
     xpText.innerText= xp;
+    update(locations[6])
+}
+function winGame(){
+    update(locations[8])
 }
 
 //FUNCIONES QUE CAMBIAN EL ESCENARIO
