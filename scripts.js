@@ -7,8 +7,11 @@ let currentWeaponIndex = 0;
 let potions = 0;
 let fighting = 0;
 let monsterHealth = 0;
+let fighting = 0;
+let monsterHealth = 0;
 let inventory = ["Palo"];
 
+//QUERY SELECTORS
 //QUERY SELECTORS
 
 
@@ -23,6 +26,11 @@ const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
 const buttonPotion = document.querySelector("#potion");
+const monsterStats = document.querySelector("#monster-stats");
+const monsterName = document.querySelector("#monster-name");
+const monsterHealthText = document.querySelector("#monster-health-text")
+
+//ARMAS
 const monsterStats = document.querySelector("#monster-stats");
 const monsterName = document.querySelector("#monster-name");
 const monsterHealthText = document.querySelector("#monster-health-text")
@@ -51,9 +59,11 @@ const weapons = [
 //ESCENARIOS
 
 var locations = [
+var locations = [
     {
         name: "Pueblo",
         "button text": ["Ir a la tienda", "Ir al bosque", "Ir a la montaña"],
+        "button functions": [goStore, goForest, fightDragon],
         "button functions": [goStore, goForest, fightDragon],
         text: "Estas en el centro del pueblo, desde aqui puedes ver la tienda que regenta tu prima, la salida al bosque, y a los lejos la montaña.",
         image: "img/town.jpg"
@@ -69,12 +79,14 @@ var locations = [
         name: "Bosque Oscuro",
         "button text": ["Atacar goblin", "Atacar bestia", "Volver al pueblo"],
         "button functions": [fightGoblin, fightBeast, goTown],
+        "button functions": [fightGoblin, fightBeast, goTown],
         text: "Te encuentras en el bosque. Escuchas mostruos acechando cerca tuyo. Suenan como los ronquidos de tu madre.",
         image: "img/forest.jpg"
     },
     {
         name: "Attack Dragón",
         "button text": ["Atacar", "Esquivar", "Huir"],
+        "button functions": [attackDragon, dodge, goTown],
         "button functions": [attackDragon, dodge, goTown],
         text: "Te encuentras en la \"montaña de la muerte\", sientes escalofrios, quizás sea por el frio, o quizás sea por el dragon de 20 metros del altura que se encuentra ante ti, relaminedose sus labios escamosos. Te recuerda a tu prima.",
         image: "img/dragon.jpg"
@@ -83,12 +95,14 @@ var locations = [
         name: "Attack Goblin",
         "button text": ["Atacar", "Esquivar", "Huir"],
         "button functions": [attackGoblin, dodge, goForest],
+        "button functions": [attackGoblin, dodge, goForest],
         text: "Estas atacando un goblin. Es pequeño, feo y escurridizo. Te recuerda a tu hermano.",
         image: "img/goblin.jpg"
     },
     {
         name: "Attack Beast",
         "button text": ["Atacar", "Esquivar", "Huir"],
+        "button functions": [attackBeast, dodge, goForest],
         "button functions": [attackBeast, dodge, goForest],
         text: "Estas atacando una bestia. Sus colmillos enormes te recuerdan a tu tio.",
         image: "img/beast.jpg"
@@ -119,6 +133,7 @@ const monsters = [
 
 button1.onclick = goStore;
 button2.onclick = goForest;
+button3.onclick = fightDragon;
 button3.onclick = fightDragon;
 buttonPotion.onclick = usePotion;
 
@@ -175,6 +190,18 @@ function usePotion(){
     } else {
         innerText = "No tienes más pociones."
     }
+}
+function attackGoblin(){
+    fighting = 0;
+    attack();
+}
+function attackBeast(){
+    fighting = 1;
+    attack();
+}
+function attackDragon(){
+    fighting = 2;
+    attack();
 }
 function attackGoblin(){
     fighting = 0;
