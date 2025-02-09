@@ -1,8 +1,8 @@
 //VARIABLES
 
 let xp = 0;
-let health = 1000;
-let gold= 210;
+let health = 100;
+let gold= 10;
 let currentWeaponIndex = 0;
 let potions = 0;
 let fighting = 0;
@@ -123,16 +123,19 @@ const monsters = [
         name: "Goblin",
         level: 5,
         health: 50,
+        maxHealth: 50
     },
     {
         name: "Lobo Gigante",
         level: 30,
         health: 150,
+        maxHealth: 150
     },
     {
         name: "Dragón",
         level: 70,
         health: 300,
+        maxHealth: 300
     }
 ]
 
@@ -140,7 +143,6 @@ const monsters = [
 
 button1.onclick = goStore;
 button2.onclick = goForest;
-button3.onclick = fightDragon;
 button3.onclick = fightDragon;
 buttonPotion.onclick = usePotion;
 
@@ -210,23 +212,11 @@ function attackDragon(){
     fighting = 2;
     attack();
 }
-function attackGoblin(){
-    fighting = 0;
-    attack();
-}
-function attackBeast(){
-    fighting = 1;
-    attack();
-}
-function attackDragon(){
-    fighting = 2;
-    attack();
-}
 function attack(){
     monsterStats.style.display = "block";
     health -= monsters[fighting].level;
-    monsters[fighting].health -= weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp) + 1;
-    monsterHealth = monsters[fighting].health
+    let damage = weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp);
+    monsterHealth -= damage;
     monsterHealthText.innerText = monsterHealth;
     healthText.innerText = health;
     text.innerText = "El " + monsters[fighting].name + " te ataca y te causa " + monsters[fighting].level + " puntos de daño. Tu le devuelves el golpe con tu " + inventory[currentWeaponIndex] + " y le haces " + (weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp) + 1) + " puntos de daño."
@@ -288,19 +278,22 @@ function fightDragon(){
     update(locations[3]);
     monsterStats.style.display = "block";
     monsterName.innerText = monsters[2].name;
-    monsterHealthText.innerText = monsters[2].health;
+    monsterHealth = monsters[2].maxHealth;
+    monsterHealthText.innerText = monsters[2].maxHealth;
 }
 function fightGoblin(){
     update(locations[4]);
     monsterStats.style.display = "block"
     monsterName.innerText = monsters[0].name;
-    monsterHealthText.innerText = monsters[0].health;
+    monsterHealth = monsters[0].maxHealth;
+    monsterHealthText.innerText = monsters[0].maxHealth;
 }
 function fightBeast(){
     update(locations[5]);
     monsterStats.style.display = "block";
     monsterName.innerText = monsters[1].name;
-    monsterHealthText.innerText = monsters[1].health;
+    monsterHealth = monsters[1].maxHealth;
+    monsterHealthText.innerText = monsters[1].maxHealth;
 }
 function restart(){
     xp = 0;
@@ -310,13 +303,12 @@ function restart(){
     inventory = ["Palo"];
     xpText.innerText = xp;
     healthText.innerText = health;
-    gold.innerText = gold;
+    goldText.innerText = gold;
+    goTown()
 }
 
 //COSAS POR HACER
 /*
-- Arreglar funcion de pelea. Al ir a pelear con un monstruo de nuevo, sus stats deberian reiniciarse.
-- Arreglar boton de reinicio (No funciona)
 - Sonido ambiental en distintas localizaciones
 - Sonido cuando atacas
 - Animacion que sacude la pantalla cuando atacas
