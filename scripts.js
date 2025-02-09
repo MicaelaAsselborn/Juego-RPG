@@ -6,8 +6,8 @@ let gold= 150;
 let currentWeaponIndex = 0;
 let potions = 0;
 let fighting;
-let inventory = ["Palo"];
-
+let monsterHealth;
+let inventory = ["Palo", "Daga", "Lanza", "Espada"];
 
 //QUERY SELECTORS
 
@@ -22,31 +22,7 @@ const image = document.querySelector("img");
 const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
-const buttonPotion = document.querySelector("#potion");
-const monsterStats = document.querySelector("#monster-stats");
-const monsterName = document.querySelector("#monster-name");
-const monsterHealthText = document.querySelector("#monster-heath-text")
-
-//ARMAS
-
-const weapons = [
-    {
-        name: "Palo",
-        power: 5,
-    },
-    {
-        name: " Daga",
-        power: 30,
-    },
-    {
-        name: " Lanza",
-        power: 50,
-    },
-    {
-        name: " Espada",
-        power: 100,
-    }
-]
+const buttonPotion = document.querySelector("#potion")
 
 //ESCENARIOS
 
