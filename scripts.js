@@ -1,13 +1,14 @@
-//VALORES
+//VARIABLES
 
 let xp = 0;
 let health = 100;
-let gold= 50;
+let gold= 150;
 let currentWeaponIndex = 0;
 let potions = 0;
 let fighting;
 let monsterHealth;
-let inventory = ["Palo", "Daga", "Lanza", "Espada"];
+let inventory = ["Palo"];
+
 
 //CONSTANTES
 
@@ -23,7 +24,27 @@ const image = document.querySelector("img");
 const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
-const buttonPotion = document.querySelector("#potion")
+const buttonPotion = document.querySelector("#potion");
+const monsterStats = document.querySelector("#monster-stats")
+
+const weapons = [
+    {
+        name: "Palo",
+        power: 5,
+    },
+    {
+        name: " Daga",
+        power: 30,
+    },
+    {
+        name: " Lanza",
+        power: 50,
+    },
+    {
+        name: " Espada",
+        power: 100,
+    }
+]
 
 //ESCENARIOS
 
@@ -50,25 +71,35 @@ const locations = [
         image: "img/forest.jpg"
     },
     {
-        name: "Dragón",
+        name: "Attack Dragón",
         "button text": ["Atacar", "Esquivar", "Huir"],
         "button functions": [attack, dodge, goTown],
         text: "Te encuentras en la \"montaña de la muerte\", sientes escalofrios, quizás sea por el frio, o quizás sea por el dragon de 20 metros del altura que se encuentra ante ti, relaminedose sus labios escamosos. Te recuerda a tu prima.",
         image: "img/dragon.jpg"
     },
     {
-        name: "Goblin",
+        name: "Attack Goblin",
         "button text": ["Atacar", "Esquivar", "Huir"],
         "button functions": [attack, dodge, goTown],
         text: "Estas atacando un goblin. Es pequeño, feo y escurridizo. Te recuerda a tu hermano.",
         image: "img/goblin.jpg"
     },
     {
-        name: "Beast",
+        name: "Attack Beast",
         "button text": ["Atacar", "Esquivar", "Huir"],
         "button functions": [attack, dodge, goTown],
         text: "Estas atacando una bestia. Sus colmillos enormes te recuerdan a tu tio.",
         image: "img/beast.jpg"
+    }
+]
+
+//MONSTRUOS
+
+const monsters = [
+    {
+        name: "Goblin",
+        health: 30,
+        power: 10
     }
 ]
 
@@ -83,31 +114,52 @@ buttonPotion.onclick = usePotion;
 // FUNCIONES ACCIONES
 
 function buyPotion(){
- if(gold > 10){
-    potions += 1;
-    gold -= 10;
-    goldText = gold;
-    potionsText = potions;
- } else{
+    if(gold >= 10){
+        potions += 1;
+        gold -= 10;
+        goldText.innerText = gold;
+        potionsText.innerText = potions;
+        text.innerText = "Has comprado una poción. Es tan roja como los ojos de tu abuelo.";
+    } else{
     text.innerText = "No tienes suficiente oro."
- }
+    }
 }
 function buyWeapon(){
-    if(gold > 30){
-        currentWeaponIndex += 1;
-        gold -= 30;
-        goldText = gold;
-        weapon = currentWeaponIndex;
-     } else{
+    if(currentWeaponIndex < weapons.length -1){
+        if(gold >= 30){
+            gold -= 30;
+            currentWeaponIndex ++;
+            let newWeapon = weapons[currentWeaponIndex].name;
+            inventory.push(newWeapon)
+            goldText.innerText = gold;
+            weaponsText.innerText = inventory;
+            text.innerText = "Has comprado una nueva arma. Ahora tienes una " + newWeapon + ".";
+            } else{
         text.innerText = "No tienes suficiente oro."
-     }
+        } 
+    } else {
+        text.innerText = "¡Ya tienes el arma más poderosa!";
+        button2.innerText = "Vender arma (15 oro)";
+        button2.onclick = sellWeapon
+    }
+}
+function sellWeapon(){
+    if (inventory.length > 1) {
+        gold += 15;
+        inventory.shift();
+        text.innerText = "Vendiste tu vieja arma por 15 piezas de oro.";
+        goldText.innerText = gold;
+        weaponsText.innerText = inventory
+    } else {
+        text.innerText = "¡No deberias vender tu última arma!";
+    }
 }
 function usePotion(){
     if (potions >= 1){
         potions--;
-        potionsText = potions;
         health += 10;
-        healthText = health;
+        potionsText.innerText = potions;
+        healthText.innerText = health;
     } else {
         innerText = "No tienes más pociones."
     }
