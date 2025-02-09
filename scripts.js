@@ -2,11 +2,11 @@
 
 let xp = 0;
 let health = 100;
-let gold= 150;
+let gold= 10;
 let currentWeaponIndex = 0;
 let potions = 0;
 let fighting = 0;
-let monsterHealth = 0;
+let monsterHealth;
 let inventory = ["Palo"];
 
 //QUERY SELECTORS
@@ -50,11 +50,10 @@ const weapons = [
 
 //ESCENARIOS
 
-var locations = [
+const locations = [
     {
         name: "Pueblo",
         "button text": ["Ir a la tienda", "Ir al bosque", "Ir a la montaña"],
-        "button functions": [goStore, goForest, fightDragon],
         "button functions": [goStore, goForest, fightDragon],
         text: "Estas en el centro del pueblo, desde aqui puedes ver la tienda que regenta tu prima, la salida al bosque, y a los lejos la montaña.",
         image: "img/town.jpg"
@@ -70,14 +69,12 @@ var locations = [
         name: "Bosque Oscuro",
         "button text": ["Atacar goblin", "Atacar bestia", "Volver al pueblo"],
         "button functions": [fightGoblin, fightBeast, goTown],
-        "button functions": [fightGoblin, fightBeast, goTown],
         text: "Te encuentras en el bosque. Escuchas mostruos acechando cerca tuyo. Suenan como los ronquidos de tu madre.",
         image: "img/forest.jpg"
     },
     {
         name: "Attack Dragón",
         "button text": ["Atacar", "Esquivar", "Huir"],
-        "button functions": [attackDragon, dodge, goTown],
         "button functions": [attackDragon, dodge, goTown],
         text: "Te encuentras en la \"montaña de la muerte\", sientes escalofrios, quizás sea por el frio, o quizás sea por el dragon de 20 metros del altura que se encuentra ante ti, relaminedose sus labios escamosos. Te recuerda a tu prima.",
         image: "img/dragon.jpg"
@@ -86,7 +83,6 @@ var locations = [
         name: "Attack Goblin",
         "button text": ["Atacar", "Esquivar", "Huir"],
         "button functions": [attackGoblin, dodge, goForest],
-        "button functions": [attackGoblin, dodge, goForest],
         text: "Estas atacando un goblin. Es pequeño, feo y escurridizo. Te recuerda a tu hermano.",
         image: "img/goblin.jpg"
     },
@@ -94,9 +90,22 @@ var locations = [
         name: "Attack Beast",
         "button text": ["Atacar", "Esquivar", "Huir"],
         "button functions": [attackBeast, dodge, goForest],
-        "button functions": [attackBeast, dodge, goForest],
-        text: "Estas atacando una bestia. Sus colmillos enormes te recuerdan a tu tio.",
+        text: "Estas atacando un lobo gigante. Sus colmillos enormes te recuerdan a tu tio.",
         image: "img/beast.jpg"
+    },
+    {
+        name: "Monstruo derrotado",
+        "button text": ["Volver al pueblo", "Volver al pueblo", "Volver al pueblo"],
+        "button functions": [goTown, goTown, goTown],
+        text: "El monstruo aulla de dolor con su último aliento y cae muerto. Has ganado algo de experiencia y has encontrado algo de oro en su cadaver. El olor que flota en el aire te trae recuerdos a los fines de semana en la casa de tus abuelos.",
+        image: "img/victory.jpg"
+    },
+    {
+        name: "Derrota",
+        "button text": ["¿Jugar otra vez?", "¿Jugar otra vez?", "¿Jugar otra vez?"],
+        "button functions": [restart, restart, restart],
+        text: "Has muerto.",
+        image: "img/defeat.jpg"
     }
 ]
 
@@ -109,7 +118,7 @@ const monsters = [
         health: 50,
     },
     {
-        name: "Bestia",
+        name: "Lobo Gigante",
         level: 30,
         health: 150,
     },
@@ -179,7 +188,7 @@ function usePotion(){
         potionsText.innerText = potions;
         healthText.innerText = health;
     } else {
-        innerText = "No tienes más pociones."
+        text.innerText = "No tienes más pociones."
     }
 }
 function attackGoblin(){
@@ -207,10 +216,33 @@ function attackDragon(){
     attack();
 }
 function attack(){
-
+    health -= monsters[fighting].level;
+    monsterHealth = monsters[fighting].health
+    monsterHealthText.innerText = monsterHealth;
+    healthText.innerText = health;
+    text.innerText = "El " + monsters[fighting].name + " te ataca y te causa " + monsters[fighting].level + " puntos de daño. Tu le devuelves el golpe con tu " + inventory[currentWeaponIndex] + " y le haces " + (weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp) + 1) + " puntos de daño."
+    monsters[fighting].health -= weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp) + 1;
+    if (health <= 0){
+        lose();
+    } else if (monsterHealth <= 0 ){
+        defeatMonster();
+    }
 }
 function dodge(){
-
+    text.innerText = "Esquivas el ataque de el " + monsters[fighting].name + ".";
+}
+function lose(){
+    restart()
+    update(locations[7])
+    monsterStats.style.display = "none"
+}
+function defeatMonster(){
+    update(locations[6])
+    monsterStats.style.display = "none";
+    gold += Math.floor(monsters[fighting].level * 6.7);
+    xp += monsters[fighting].level;
+    goldText.innerText = gold;
+    xpText.innerText= xp;
 }
 
 //FUNCIONES QUE CAMBIAN EL ESCENARIO
@@ -256,11 +288,21 @@ function fightBeast(){
     monsterName.innerText = monsters[1].name;
     monsterHealthText.innerText = monsters[1].health;
 }
-//COSAS POR AÑADIR
+function restart(){
+    xp = 0;
+    health = 100;
+    gold = 10;
+    currentWeaponIndex = 0;
+    inventory = ["Palo"];
+    xpText.innerText = xp;
+    healthText.innerText = health;
+    gold.innerText = gold;
+}
+
+//COSAS POR HACER
 /*
-- Hacer funcionar las funciones de ataque
-- Añadir funcion para ganar exp
-- Añadir funcion para ganar oro
+- Arreglar funcion de pelea. Al ir a pelear con un monstruo de nuevo, sus stats deberian reiniciarse.
+- Arreglar boton de reinicio (No funciona)
 - Sonido ambiental en distintas localizaciones
 - Sonido cuando atacas
 - Animacion que sacude la pantalla cuando atacas
