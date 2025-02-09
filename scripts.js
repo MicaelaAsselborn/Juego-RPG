@@ -231,6 +231,11 @@ function attack(){
     } else {
         text.innerText = "El " + monsters[fighting].name + " te ataca y te causa " + monsters[fighting].level + " puntos de daño. Tu fallas el golpe."
     }
+    if (Math.random() <= .1 && inventory.length !== 1){
+        currentWeaponIndex--
+        text.innerText += " ¡Oh no! Tu " + inventory.pop() + " se ha roto!"
+        weaponsText.innerText = inventory
+    }
     monsterHealthText.innerText = monsterHealth;
     healthText.innerText = health;
     
