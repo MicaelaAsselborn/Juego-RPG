@@ -98,8 +98,18 @@ const locations = [
 const monsters = [
     {
         name: "Goblin",
-        health: 30,
-        power: 10
+        level: 5,
+        health: 50,
+    },
+    {
+        name: "Bestia",
+        level: 30,
+        health: 150
+    },
+    {
+        name: "Dragón",
+        level: 100,
+        health: 500
     }
 ]
 
