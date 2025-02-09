@@ -226,10 +226,15 @@ function attack(){
     monsterStats.style.display = "block";
     health -= monsters[fighting].level;
     let damage = weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp);
+    if (isMonsterHit()){
     monsterHealth -= damage;
+    text.innerText = "El " + monsters[fighting].name + " te ataca y te causa " + monsters[fighting].level + " puntos de daño. Tu le devuelves el golpe con tu " + inventory[currentWeaponIndex] + " y le haces " + (weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp) + 1) + " puntos de daño."
+    } else {
+        text.innerText = "El " + monsters[fighting].name + " te ataca y te causa " + monsters[fighting].level + " puntos de daño. Tu fallas el golpe."
+    }
     monsterHealthText.innerText = monsterHealth;
     healthText.innerText = health;
-    text.innerText = "El " + monsters[fighting].name + " te ataca y te causa " + monsters[fighting].level + " puntos de daño. Tu le devuelves el golpe con tu " + inventory[currentWeaponIndex] + " y le haces " + (weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp) + 1) + " puntos de daño."
+    
     if (health <= 0){
         lose();
     } else if (monsterHealth <= 0 ){
@@ -239,6 +244,9 @@ function attack(){
             defeatMonster();
         }
     } 
+}
+function isMonsterHit(){
+    return Math.random() > 0.2 || health < 20;
 }
 function dodge(){
     text.innerText = "Esquivas el ataque de el " + monsters[fighting].name + ".";
