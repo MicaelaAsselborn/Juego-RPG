@@ -200,12 +200,20 @@ function sellWeapon(){
     }
 }
 function usePotion(){
-    if (potions >= 1){
+    if (potions >= 1 && health < 90){
         potions--;
         health += 10;
         potionsText.innerText = potions;
         healthText.innerText = health;
-    } else {
+    } else if (potions >= 1 && (health >= 90 && health < 100)){
+        let healPoint = 100 - health;
+        health += healPoint;
+        potions--;
+        healthText.innerText = health;
+        potionsText.innerText = potions;
+    } else if (potions >= 1 && health >= 100){
+        text.innerText += "\n" + "Tu salud ya se encuentra al máximo."
+    } else{
         text.innerText = "No tienes más pociones."
     }
 }
@@ -234,7 +242,7 @@ function attack(){
     }
     if (Math.random() <= .1 && inventory.length !== 1){
         currentWeaponIndex--
-        text.innerText += " ¡Oh no! Tu " + inventory.pop() + " se ha roto!"
+        text.innerText += " ¡Oh no! ¡La piel de ese monstruo era demasiado dura! Tu " + inventory.pop() + " se ha roto!"
         weaponsText.innerText = inventory
     }
     monsterHealthText.innerText = monsterHealth;
