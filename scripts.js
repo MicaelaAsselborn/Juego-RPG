@@ -267,13 +267,15 @@ function dodge(){
 function lose(){
     restart()
     update(locations[7])
-    monsterStats.style.display = "none"
+    monsterStats.style.display = "none";
 }
+
 function defeatMonster(){
     gold += Math.floor(monsters[fighting].level * 6.7);
     xp += monsters[fighting].level;
     goldText.innerText = gold;
     xpText.innerText= xp;
+    monsterStats.style.display = "none";
     update(locations[6])
 }
 function winGame(){
@@ -333,11 +335,14 @@ function restart(){
     xp = 0;
     health = 100;
     gold = 10;
+    potions = 0;
     currentWeaponIndex = 0;
     inventory = ["Palo"];
     xpText.innerText = xp;
     healthText.innerText = health;
     goldText.innerText = gold;
+    potionsText = potions;
+    weaponsText.innerText = inventory;
     goTown()
 }
 
