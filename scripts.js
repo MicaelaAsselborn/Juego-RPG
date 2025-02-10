@@ -202,10 +202,10 @@ function sellWeapon(){
 function usePotion(){
     if (potions >= 1 && health < 90){
         potions--;
-        health += 10;
+        health += 25;
         potionsText.innerText = potions;
         healthText.innerText = health;
-    } else if (potions >= 1 && (health >= 90 && health < 100)){
+    } else if (potions >= 1 && (health >= 75 && health < 100)){
         let healPoint = 100 - health;
         health += healPoint;
         potions--;
