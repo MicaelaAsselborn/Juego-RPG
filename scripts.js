@@ -341,7 +341,7 @@ function restart(){
     xpText.innerText = xp;
     healthText.innerText = health;
     goldText.innerText = gold;
-    potionsText = potions;
+    potionsText.innerText = potions;
     weaponsText.innerText = inventory;
     goTown()
 }
