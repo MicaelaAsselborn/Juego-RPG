@@ -37,7 +37,7 @@ audio{
     border-right: 2px solid var(--orange);
 }
 #text-frame{
-    height: calc(490px - 152px);
+    height: calc(490px - 192px);
     overflow-y: scroll
 }
 img{
