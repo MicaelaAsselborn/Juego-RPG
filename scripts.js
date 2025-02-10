@@ -40,7 +40,7 @@ const weapons = [
     },
     {
         name: " Lanza",
-        power: 50,
+        power: 60,
     },
     {
         name: " Espada",
@@ -137,14 +137,14 @@ const monsters = [
     {
         name: "Hombre Lobo",
         level: 20,
-        health: 150,
-        maxHealth: 150
+        health: 300,
+        maxHealth: 300
     },
     {
         name: "Dragón",
         level: 60,
-        health: 400,
-        maxHealth: 400
+        health: 700,
+        maxHealth: 700
     }
 ]
 
@@ -164,9 +164,9 @@ function buyPotion(){
         gold -= 10;
         goldText.innerText = gold;
         potionsText.innerText = potions;
-        text.innerText = "Has comprado una poción. Es tan roja como los ojos de tu abuelo.";
+        text.innerText += "\n" + "Has comprado una poción. Es tan roja como los ojos de tu abuelo.";
     } else{
-    text.innerText = "No tienes suficiente oro."
+    text.innerText += "\n" + "No tienes suficiente oro."
     }
 }
 function buyWeapon(){
@@ -178,12 +178,12 @@ function buyWeapon(){
             inventory.push(newWeapon)
             goldText.innerText = gold;
             weaponsText.innerText = inventory;
-            text.innerText = "Has comprado una nueva arma. Ahora tienes una " + newWeapon + ".";
+            text.innerText += "\n" + "Has comprado una nueva arma. Ahora tienes una " + newWeapon + ".";
             } else{
-        text.innerText = "No tienes suficiente oro."
+        text.innerText += "\n" + "No tienes suficiente oro."
         } 
     } else {
-        text.innerText = "¡Ya tienes el arma más poderosa!";
+        text.innerText += "\n" + "¡Ya tienes el arma más poderosa!";
         button2.innerText = "Vender arma (15 oro)";
         button2.onclick = sellWeapon
     }
@@ -192,11 +192,11 @@ function sellWeapon(){
     if (inventory.length > 1) {
         gold += 15;
         inventory.shift();
-        text.innerText = "Vendiste tu vieja arma por 15 piezas de oro.";
+        text.innerText += "\n" + "Vendiste tu vieja arma por 15 piezas de oro.";
         goldText.innerText = gold;
         weaponsText.innerText = inventory
     } else {
-        text.innerText = "¡No deberias vender tu última arma!";
+        text.innerText += "\n" + "¡No deberias vender tu última arma!";
     }
 }
 function usePotion(){
@@ -214,7 +214,7 @@ function usePotion(){
     } else if (potions >= 1 && health >= 100){
         text.innerText += "\n" + "Tu salud ya se encuentra al máximo."
     } else{
-        text.innerText = "No tienes más pociones."
+        text.innerText += "\n" + "No tienes más pociones."
     }
 }
 function attackGoblin(){
@@ -236,13 +236,13 @@ function attack(){
     let damage = weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp);
     if (isMonsterHit()){
     monsterHealth -= damage;
-    text.innerText = "El " + monsters[fighting].name + " te ataca y te causa " + monsters[fighting].level + " puntos de daño. Tu le devuelves el golpe con tu " + inventory[currentWeaponIndex] + " y le haces " + (weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp) + 1) + " puntos de daño."
+    text.innerText += "\n" + "El " + monsters[fighting].name + " te ataca y te causa " + monsters[fighting].level + " puntos de daño. Tu le devuelves el golpe con tu " + inventory[currentWeaponIndex] + " y le haces " + (weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp)) + " puntos de daño."
     } else {
-        text.innerText = "El " + monsters[fighting].name + " te ataca y te causa " + monsters[fighting].level + " puntos de daño. Tu fallas el golpe."
+        text.innerText += "\n" + "El " + monsters[fighting].name + " te ataca y te causa " + monsters[fighting].level + " puntos de daño. Tu fallas el golpe."
     }
-    if (Math.random() <= .1 && inventory.length !== 1){
+    if (Math.random() <= .07 && inventory.length !== 1){
         currentWeaponIndex--
-        text.innerText += " ¡Oh no! ¡La piel de ese monstruo era demasiado dura! Tu " + inventory.pop() + " se ha roto!"
+        text.innerText += "\n" + " ¡Oh no! ¡La piel de ese monstruo era demasiado dura! Tu " + inventory.pop() + " se ha roto!"
         weaponsText.innerText = inventory
     }
     monsterHealthText.innerText = monsterHealth;
@@ -262,7 +262,7 @@ function isMonsterHit(){
     return Math.random() > 0.2 || health < 20;
 }
 function dodge(){
-    text.innerText = "Esquivas el ataque de el " + monsters[fighting].name + ".";
+    text.innerText += "\n" + "Esquivas el ataque de el " + monsters[fighting].name + ".";
 }
 function lose(){
     restart()
