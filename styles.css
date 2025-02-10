@@ -36,6 +36,10 @@ audio{
     width: calc(100% - 277px);
     border-right: 2px solid var(--orange);
 }
+#text-frame{
+    height: calc(490px - 152px);
+    overflow-y: scroll
+}
 img{
     width: 278px;
     overflow: hidden;
@@ -123,7 +127,6 @@ p{
     #text-frame{
         font-size: 1em;
         padding: 5px;
-        overflow-y: scroll;
         text-align: center;
         height: 70%
     }
