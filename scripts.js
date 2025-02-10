@@ -164,7 +164,7 @@ function buyPotion(){
         gold -= 10;
         goldText.innerText = gold;
         potionsText.innerText = potions;
-        text.innerText += "\n" + "Has comprado una poción. Es tan roja como los ojos de tu abuelo.";
+        text.innerText += "\n" + "Has comprado una poción por 15 piezas de oro. Es tan roja como los ojos de tu abuelo.";
     } else{
     text.innerText += "\n" + "No tienes suficiente oro."
     }
@@ -178,7 +178,7 @@ function buyWeapon(){
             inventory.push(newWeapon)
             goldText.innerText = gold;
             weaponsText.innerText = inventory;
-            text.innerText += "\n" + "Has comprado una nueva arma. Ahora tienes una " + newWeapon + ".";
+            text.innerText += "\n" + "Has comprado una nueva arma por 30 piezas de oro. Ahora tienes una " + newWeapon + ".";
             } else{
         text.innerText += "\n" + "No tienes suficiente oro."
         } 
@@ -200,17 +200,19 @@ function sellWeapon(){
     }
 }
 function usePotion(){
-    if (potions >= 1 && health < 90){
+    if (potions >= 1 && health < 75){
         potions--;
         health += 25;
         potionsText.innerText = potions;
         healthText.innerText = health;
+        text.innerText += "\n" + "Has usado una poción y te has curado 25 puntos de salud."
     } else if (potions >= 1 && (health >= 75 && health < 100)){
         let healPoint = 100 - health;
         health += healPoint;
         potions--;
         healthText.innerText = health;
         potionsText.innerText = potions;
+        text.innerText += "\n" + "Has usado una poción y te has curado " + healPoint + " puntos de salud."
     } else if (potions >= 1 && health >= 100){
         text.innerText += "\n" + "Tu salud ya se encuentra al máximo."
     } else{
