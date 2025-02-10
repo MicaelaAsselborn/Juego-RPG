@@ -222,6 +222,7 @@ function attackDragon(){
     attack();
 }
 function attack(){
+    navigator.vibrate
     monsterStats.style.display = "block";
     health -= monsters[fighting].level;
     let damage = weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp);
