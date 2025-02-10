@@ -106,6 +106,9 @@ p{
         margin: auto;
         border: 2px solid;
     }
+    #stats span{
+        padding: 0 5px;
+    }
     img{
         width: 354px;
         height: 59dvh;
@@ -118,10 +121,11 @@ p{
         justify-content: space-evenly;
         align-items: center;
     }
-    #text{
+    #text-frame{
         font-size: 1em;
         padding: 5px;
         overflow-y: scroll;
         text-align: center;
+        height: 70%
     }
 }
