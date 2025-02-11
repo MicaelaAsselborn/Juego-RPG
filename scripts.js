@@ -264,7 +264,7 @@ function isMonsterHit(){
     return Math.random() > 0.2 || health < 20;
 }
 function dodge(){
-    text.innerText += "\n" + "Esquivas el ataque de el " + monsters[fighting].name + ".";
+    text.innerText += "\n" + "Esquivas el ataque con éxito.";
 }
 function lose(){
     restart()
@@ -281,6 +281,7 @@ function defeatMonster(){
     update(locations[6])
 }
 function winGame(){
+    monsterStats.style.display = "none";
     update(locations[8])
 }
 
@@ -299,7 +300,6 @@ function update(location){
     audio.load();
     audio.play();
 }
-
 function goTown(){
     update(locations[0]);
     monsterStats.style.display = "none";
@@ -347,4 +347,3 @@ function restart(){
     weaponsText.innerText = inventory;
     goTown()
 }
-
